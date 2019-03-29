@@ -1,0 +1,20 @@
+{
+  "name": "vesselBuyer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "child_process": "^1.0.2",
+    "open": "^6.0.0",
+    "opn": "^6.0.0",
+    "puppeteer": "^1.13.0",
+    "request": "^2.88.0"
+  }
+}
