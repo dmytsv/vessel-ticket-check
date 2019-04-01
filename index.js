@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const open = require("open");
+require("dotenv").config();
 
 const url =
   "https://tickets.hudsonyardsnewyork.com/webstore/shop/viewitems.aspx?cg=VesselTix&C=VesselAdm";
@@ -28,29 +29,32 @@ const getTextFromPTag = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
-
+  await page.screenshot({ path: "pageStart.png" });
   //   check if selling page is active
-  const text = await page.evaluate(() => {
+  const text = await page.evaluate(async () => {
     let element = document.querySelector(".row .ng-scope > p.ng-binding");
     if (element) {
       return element.innerText;
     } else {
       let input = document.querySelector(".reminder-form input");
       let button = document.querySelector(".reminder-form button");
-      input.value = "mrcuppyesq@gmail.com";
+
+      input.value = process.env.EMAIL;
+      await waitNumberOfMilliseconds(waitTime);
       button.click();
+
       return "";
     }
   });
-
-  console.log("Test: ", text === checkStr);
+  await page.screenshot({ path: "pageEnd.png" });
 
   await browser.close();
   return text;
 };
 
 let index = 0;
-const maxIndex = Math.floor(timeoutTime / waitTime);
+// const maxIndex = Math.floor(timeoutTime / waitTime);
+const maxIndex = 1;
 
 const pageCheckRecur = async waitTime => {
   let text = await getTextFromPTag();
